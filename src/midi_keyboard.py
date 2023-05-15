@@ -67,7 +67,8 @@ def tokenize(user_input: str) -> list[str]:
     time_sig_pattern.match(time_sig)
     # if match
     # if valid then keep, else break with error
-    meter.is_valid(time_sig)
+    # find out why the fuck this breaks
+    meter.is_valid(float(time_sig))
 
     # Find out if token is of valid type
     # Find out what type it is and attach it to token

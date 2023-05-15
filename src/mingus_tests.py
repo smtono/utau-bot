@@ -1,3 +1,4 @@
+# pylint: skip-file
 """
 Write a program that asks for a note, check if it is valid and output the note which is five half notes away from it.
 Get the minor equivalent of a valid note and diminish it.
