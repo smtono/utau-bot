@@ -2,7 +2,8 @@
 MIDI Keyboard:
 
 An interactive keyboard that uses plain text input to create a MIDI output.
-This is used for parsing Discord messages that use plain text, and does not require and special input
+This is used for parsing Discord messages that use plain text, 
+and does not require and special input
 
 Notation:
 For simple notes, simply put the name of the note.
@@ -10,12 +11,9 @@ A B C D E F G
 
 """
 
-import mingus.core.notes as notes
-import mingus.core.meter as meter
-from mingus.containers import Composition
-from mingus.containers import NoteContainer
-
 import re
+
+from mingus.core import meter
 
 def tokenize(user_input: str):
     """
@@ -36,10 +34,10 @@ def tokenize(user_input: str):
     Raises:
         SyntaxError if syntax error occurs
     """
-    return_tokens = []
+    # return_tokens = []
     tokens = user_input.split()
     time_sig_pattern = re.compile("[0-9]+/[0-9]+")
-    
+
     # Time signature
     time_sig = tokens[0]
     time_sig_pattern.match(time_sig)
