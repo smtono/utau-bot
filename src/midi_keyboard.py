@@ -11,9 +11,11 @@ A B C D E F G
 """
 
 import mingus.core.notes as notes
-import mingus.core as diatonic
+import mingus.core.meter as meter
 from mingus.containers import Composition
 from mingus.containers import NoteContainer
+
+import re
 
 def tokenize(user_input: str):
     """
@@ -30,16 +32,24 @@ def tokenize(user_input: str):
     Args:
         user_input
     Returns:
-      A list of tokens used to construct a Composition
+        A list of tokens used to construct a Composition
     Raises:
+        SyntaxError if syntax error occurs
     """
     return_tokens = []
     tokens = user_input.split()
-    for token in tokens:
-        # Find out if token is of valid type
-        # Find out what type it is and attach it to token
-        # add to final token list
-        pass
+    time_sig_pattern = re.compile("[0-9]+/[0-9]+")
+    
+    # Time signature
+    time_sig = tokens[0]
+    time_sig_pattern.match(time_sig)
+    # if match
+    # if valid then keep, else break with error
+    meter.is_valid(time_sig)
+
+    # Find out if token is of valid type
+    # Find out what type it is and attach it to token
+    # add to final token list
 
 def parse():
     """
