@@ -24,17 +24,22 @@ def tokenize(user_input: str):
         Octave
 
     The user input will follow the general structure of:
-        Time signature
-
+        Time signature, Notes, Bar, Notes, End bar
+        Ex.
+        44 1B1 2C1 1B1 | 4A1 ||
     Args:
         user_input
     Returns:
+      A list of tokens used to construct a Composition
     Raises:
     """
-    
+    return_tokens = []
     tokens = user_input.split()
     for token in tokens:
-        
+        # Find out if token is of valid type
+        # Find out what type it is and attach it to token
+        # add to final token list
+        pass
 
 def parse():
     """
