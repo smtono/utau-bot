@@ -27,7 +27,8 @@ Ex. 4/4, 3/4, 12/8 etc
 End of bars are notated with a |
 End of pieces are notated with ||
 
-It may be possible in the future to also just input at random and the parser will determine everything
+It may be possible in the future to also just input at random 
+and the parser will determine everything
 for the user. this will make it so there is less overhead that needs to be done by the user
 overall, just a jack shit bot for a jack shit / useless application.
 
