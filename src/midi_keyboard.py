@@ -30,63 +30,39 @@ End of pieces are notated with ||
 It may be possible in the future to also just input at random 
 and the parser will determine everything
 for the user. this will make it so there is less overhead that needs to be done by the user
-overall, just a jack shit bot for a jack shit / useless application.
+overall, just a minimum viable product/prototype for a fun chat experience.
 
 thank you
 """
 
-import re
+from mingus.containers import NoteContainer
+from mingus.midi import midi_file_out
 
-from mingus.core import meter
+from note import Note
 
-def tokenize(user_input: str) -> list[str]:
+class MidiKeyboard:
     """
-    Convert user input into usable tokens by the program
-    The following tokens can be created:
-        Notes
-        Accidentals
-        Octave
-
-    The user input will follow the general structure of:
-        Time signature, Notes, Bar, Notes, End bar
-        Ex.
-        44 1B1 2C1 1B1 | 4A1 ||
-    Args:
-        user_input
-    Returns:
-        A list of tokens used to construct a Composition
-    Raises:
-        SyntaxError if syntax error occurs
-    """
-    # return_tokens = []
-    tokens = user_input.split()
-    time_sig_pattern = re.compile("[0-9]+/[0-9]+")
-
-    # Time signature
-    time_sig = tokens[0]
-    time_sig_pattern.match(time_sig)
-    # if match
-    # if valid then keep, else break with error
-    # find out why the fuck this breaks
-    meter.is_valid(float(time_sig))
-
-    # Find out if token is of valid type
-    # Find out what type it is and attach it to token
-    # add to final token list
-    return tokens
-
-def parse():
-    """
-    Creates a parse tree based on tokenized values
+    a
     """
 
-def interpret():
-    """
-    Convert tokens to actual MIDI output
-    Each token is assigned meaning, and then passed to the mingus library
-    """
+    def __init__(self, instrument: int, notes: list[Note]) -> None:
+        self.composition = NoteContainer()
+        self.instrument = 0 if not instrument else instrument
+        self.notes = notes
+    
+    def compose(self):
+        """
+        Composes a MIDI file based on user input
+        """
+        for note in self.notes:
+            musical_note = Note(note)
+            composition.add_notes(musical_note)
+    
+    def _export(self):
+        """
+        Exports a MIDI file for output to send back to the user
+        """
+    
 
 if __name__ == "__main__":
-    fuck = input("input shit:\n")
-    TOKENS = tokenize(fuck)
-    print(TOKENS)
+    pass
