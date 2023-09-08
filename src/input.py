@@ -1,18 +1,33 @@
+"""Suite of functions used to parse user input and format it in a way 
+that can be used to form a composition using the Mingus library
 
+I want to write a god damn music bot to help get me out of this funk (haha get it?)
+of a depression that i'm in. i hope that by making this bot it will be easier for
+artists to share ideas quickly with users in a server their musical ideas
+with this simple to use bot. 
 
+the basic premise is to allow two modes of input,
+one with standard text input, and another that utilizes discord embeds and reactions
+both those inputs will be passed through this keyboard parser, where input is analyzed
+and passed to a mingus container where a composition can then be created, midi output
+can then be ascertained from this composition class.
 
-def tokenize(user_input: str) -> list[str]:
-    """
-    Convert user input into usable tokens by the program
-    The following tokens can be created:
-        Notes
-        Accidentals
-        Octave
+Example Usage:
 
-    The user input will follow the general structure of:
-        Time signature, Notes, Bar, Notes, End bar
-        Ex.
-        44 1B1 2C1 1B1 | 4A1 ||
+"""
+
+def parse(user_input: str) -> list[str]:
+    """Convert user input into usable tokens by the program 
+        The following tokens can be created:
+            Notes
+            Accidentals
+            Octave
+
+        The user input will follow the general structure of:
+            Time signature, Notes, Bar, Notes, End bar
+            Ex.
+            44 1B1 2C1 1B1 | 4A1 ||
+
     Args:
         user_input
     Returns:
@@ -20,31 +35,17 @@ def tokenize(user_input: str) -> list[str]:
     Raises:
         SyntaxError if syntax error occurs
     """
-    # return_tokens = []
+    notes = []
+    valid_notes = list(map(chr, range(ord('a'), ord('g')+1)))
+    
     tokens = user_input.split()
-    #time_sig_pattern = re.compile("[0-9]+/[0-9]+")
+    
+    for note in tokens:
+        if note.lower() not in valid_notes:
+            return []
+        notes.append(note)
+    
 
-    # Time signature
-    time_sig = tokens[0]
-    #time_sig_pattern.match(time_sig)
-    # if match
-    # if valid then keep, else break with error
-    # find out why the fuck this breaks
-    #meter.is_valid(float(time_sig))
-
-    # Find out if token is of valid type
-    # Find out what type it is and attach it to token
-    # add to final token list
-    return tokens
-
-# possible put somewhere else
-def parse():
-    """
-    Creates a parse tree based on tokenized values
-    """
-
-def interpret():
-    """
-    Convert tokens to actual MIDI output
-    Each token is assigned meaning, and then passed to the mingus library
-    """
+if __name__ == "__main__":
+    res1 = parse("A B C D E F G")
+    res2 = parse("G H I J K")
