@@ -35,17 +35,27 @@ def parse(user_input: str) -> list[str]:
     Raises:
         SyntaxError if syntax error occurs
     """
-    notes = []
+    if not _is_valid(user_input.split()):
+        return # error
+
+def _is_valid(notes) -> bool:
+    """Checks if notes are valid, returns error if not
+
+    Valid means that the note exists on the musical scale (ABCDEFG)
+    if outside of this scope it is not a valid note in the classical sense
+    Accidentals are parsed separately
+    
+    Args:
+        notes
+    Returns:
+    Raises:
+    """
     valid_notes = list(map(chr, range(ord('a'), ord('g')+1)))
-    
-    tokens = user_input.split()
-    
-    for note in tokens:
+
+    for note in notes:
         if note.lower() not in valid_notes:
-            return []
-        notes.append(note)
-    
+            return False
+    return True
 
 if __name__ == "__main__":
-    res1 = parse("A B C D E F G")
-    res2 = parse("G H I J K")
+    pass
