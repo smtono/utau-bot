@@ -16,6 +16,9 @@ Example Usage:
 
 """
 
+from midi_keyboard import MidiKeyboard
+
+
 def parse(user_input: str) -> list[str]:
     """Convert user input into usable tokens by the program 
         The following tokens can be created:
@@ -35,8 +38,16 @@ def parse(user_input: str) -> list[str]:
     Raises:
         SyntaxError if syntax error occurs
     """
-    if not _is_valid(user_input.split()):
+    # TODO: specify composition name
+    # add more capabilities with kinds of notes, accidentals, etc
+    notes = user_input.split()
+    if not _is_valid(notes):
         return # error
+    midi = MidiKeyboard(0, notes)
+    midi.compose()
+    
+    # Check for midi file
+    
 
 def _is_valid(notes) -> bool:
     """Checks if notes are valid, returns error if not
