@@ -25,7 +25,7 @@ thank you
 """
 
 import os
-from mingus.containers import NoteContainer, Note
+from mingus.containers import NoteContainer, Note, Track, Bar
 from mingus.midi import midi_file_out
 
 #from note import Note
@@ -36,7 +36,7 @@ class MidiKeyboard:
     """
 
     def __init__(self, instrument: int, notes: list) -> None:
-        self.composition = NoteContainer()
+        self.composition = Track()
         self.instrument = 0 if not instrument else instrument
         self.notes = notes
 
@@ -44,10 +44,16 @@ class MidiKeyboard:
         """
         Composes a MIDI file based on user input
         """
-        for note in self.notes:
-            musical_note = Note(note)
-            self.composition.add_notes(musical_note)
-        self._export()
+        # divide notes into bars
+        for i, note in enumerate(self.notes):
+            new_bar = Bar()
+            new_bar.place_notes(note, 4) # change depending on note type
+            if (i+1) % 4 == 0: # end of bar (change based on time sig?)
+                # Add to track
+                self.composition.add_bar(new_bar)
+                # Reset bar for new bar
+                new_bar = Bar()
+                
 
     def _export(self):
         """
