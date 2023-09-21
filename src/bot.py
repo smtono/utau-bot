@@ -1,5 +1,5 @@
 """
-
+utau bot used for making music
 """
 
 import os
@@ -8,6 +8,8 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from dotenv import load_dotenv
+
+import input_parser
 
 # Load environment variables
 load_dotenv()
@@ -23,16 +25,16 @@ tree = app_commands.CommandTree(client)
 @tree.command(name = "ping", description = "Simple response to check if the bot is online")
 async def ping(interaction):
     await interaction.response.send_message("At your service!")
+    
+@tree.command(name = "compose", description = "Make music like a pleb")
+async def compose(interaction: discord.Interaction, *, notes: str):
+    await interaction.response.defer()
+    input_parser.parse(notes)
+    await interaction.followup.send(file=discord.File(os.path.join(os.getcwd(), "output", "output.mid"))) # pylint: disable=syntax-error
 
 @client.event
 async def on_ready():
     await tree.sync()
     print("Ready!")
-
-stop = False
-# Conversation
-@client.event
-async def on_message(message: discord.Message):
-    global stop
 
 client.run(TOKEN)

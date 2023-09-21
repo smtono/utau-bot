@@ -24,6 +24,7 @@ overall, just a minimum viable product/prototype for a fun chat experience.
 thank you
 """
 
+import os
 from mingus.containers import NoteContainer, Note
 from mingus.midi import midi_file_out
 
@@ -52,7 +53,7 @@ class MidiKeyboard:
         """
         Exports a MIDI file for output to send back to the user
         """
-        output = "test.mid"
+        output = os.path.join(os.getcwd(), "output", "output.mid")
         midi_file_out.write_NoteContainer(output, self.composition)
 
 
