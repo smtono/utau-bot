@@ -45,14 +45,15 @@ class MidiKeyboard:
         Composes a MIDI file based on user input
         """
         # divide notes into bars
+        new_bar = Bar()
         for i, note in enumerate(self.notes):
-            new_bar = Bar()
             new_bar.place_notes(note, 4) # change depending on note type
-            if (i+1) % 4 == 0: # end of bar (change based on time sig?)
+            if (i+1) % 4 == 0 or (i+1) == len(self.notes): # end of bar (change based on time sig?)
                 # Add to track
                 self.composition.add_bar(new_bar)
                 # Reset bar for new bar
                 new_bar = Bar()
+        self._export()
                 
 
     def _export(self):
@@ -60,7 +61,7 @@ class MidiKeyboard:
         Exports a MIDI file for output to send back to the user
         """
         output = os.path.join(os.getcwd(), "output", "output.mid")
-        midi_file_out.write_NoteContainer(output, self.composition)
+        midi_file_out.write_Track(output, self.composition)
 
 
 if __name__ == "__main__":
