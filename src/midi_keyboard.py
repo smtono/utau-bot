@@ -50,12 +50,13 @@ class MidiKeyboard:
 
         # Add bars to composition
         new_bar = Bar()
-        for note in self.notes[1:]:
-            if note == "|": # TODO: error checking for correct number of notes in bar
+        for i, note in enumerate(self.notes[1:]):
+            if note == "|" or (i+1) == len(self.notes[1:]): # TODO: error checking for correct number of notes in bar
                 self.composition.add_bar(new_bar)
                 new_bar = Bar()
-            new_bar.place_notes(note, note_type)
-        self._export()  
+                continue
+            new_bar.place_notes(note, int(note_type))
+        self._export()
 
     def _export(self):
         """
