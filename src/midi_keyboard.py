@@ -44,17 +44,18 @@ class MidiKeyboard:
         """
         Composes a MIDI file based on user input
         """
-        # divide notes into bars
+        # Grab time signature
+        time_signature = self.notes[0]
+        note_type = time_signature[2]
+
+        # Add bars to composition
         new_bar = Bar()
-        for i, note in enumerate(self.notes):
-            new_bar.place_notes(note, 4) # change depending on note type
-            if (i+1) % 4 == 0 or (i+1) == len(self.notes): # end of bar (change based on time sig?)
-                # Add to track
+        for note in self.notes[1:]:
+            if note == "|": # TODO: error checking for correct number of notes in bar
                 self.composition.add_bar(new_bar)
-                # Reset bar for new bar
                 new_bar = Bar()
-        self._export()
-                
+            new_bar.place_notes(note, note_type)
+        self._export()  
 
     def _export(self):
         """
@@ -65,6 +66,6 @@ class MidiKeyboard:
 
 
 if __name__ == "__main__":
-    composition_notes = ["C", "E", "G", "C"] # chord
+    composition_notes = ["4/4", "C", "E", "G", "C", "|", "A", "B", "C", "D"] # chord
     composition_eee = MidiKeyboard(0, composition_notes)
     composition_eee.compose()
