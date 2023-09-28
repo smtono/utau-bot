@@ -27,6 +27,7 @@ thank you
 import os
 from mingus.containers import NoteContainer, Note, Track, Bar
 from mingus.midi import midi_file_out
+from midi2audio import FluidSynth
 
 #from note import Note
 
@@ -63,7 +64,10 @@ class MidiKeyboard:
         Exports a MIDI file for output to send back to the user
         """
         output = os.path.join(os.getcwd(), "output", "output.mid")
+        final = os.path.join(os.getcwd(), "output", "output.mp3")
         midi_file_out.write_Track(output, self.composition)
+        FluidSynth().midi_to_audio(output, final)
+        
 
 
 if __name__ == "__main__":

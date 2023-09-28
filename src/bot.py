@@ -30,7 +30,7 @@ async def ping(interaction):
 async def compose(interaction: discord.Interaction, *, notes: str):
     await interaction.response.defer()
     input_parser.parse(notes)
-    await interaction.followup.send(file=discord.File(os.path.join(os.getcwd(), "output", "output.mid"))) # pylint: disable=syntax-error
+    await interaction.followup.send(file=discord.File(os.path.join(os.getcwd(), "output", "output.mp3"))) # pylint: disable=syntax-error
 
 @client.event
 async def on_ready():
