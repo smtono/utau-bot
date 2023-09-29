@@ -66,9 +66,7 @@ class MidiKeyboard:
         output = os.path.join(os.getcwd(), "output", "output.mid")
         final = os.path.join(os.getcwd(), "output", "output.mp3")
         midi_file_out.write_Track(output, self.composition)
-        FluidSynth().midi_to_audio(output, final)
-        
-
+        FluidSynth().midi_to_audio(output, final)    
 
 if __name__ == "__main__":
     composition_notes = ["4/4", "C", "E", "G", "C", "|", "A", "B", "C", "D"] # chord
