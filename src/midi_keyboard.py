@@ -51,12 +51,17 @@ class MidiKeyboard:
 
         # Add bars to composition
         new_bar = Bar()
+        notes_in_bar = 0
         for i, note in enumerate(self.notes[1:]):
-            if note == "|" or (i+1) == len(self.notes[1:]): # TODO: error checking for correct number of notes in bar
+            if (note == "|" and notes_in_bar == 4) or ((i+1) == len(self.notes[1:])):
                 self.composition.add_bar(new_bar)
                 new_bar = Bar()
+                notes_in_bar = 0
                 continue
             new_bar.place_notes(note, int(note_type))
+            notes_in_bar += 1
+
+        # done
         self._export()
 
     def _export(self):
@@ -66,7 +71,7 @@ class MidiKeyboard:
         output = os.path.join(os.getcwd(), "output", "output.mid")
         final = os.path.join(os.getcwd(), "output", "output.mp3")
         midi_file_out.write_Track(output, self.composition)
-        FluidSynth().midi_to_audio(output, final)    
+        FluidSynth().midi_to_audio(output, final)
 
 if __name__ == "__main__":
     composition_notes = ["4/4", "C", "E", "G", "C", "|", "A", "B", "C", "D"] # chord
