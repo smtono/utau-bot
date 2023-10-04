@@ -64,8 +64,9 @@ def _is_valid(notes) -> bool:
     valid_notes = list(map(chr, range(ord('a'), ord('g')+1)))
 
     for note in notes:
-        if note.lower() not in valid_notes:
-            return False
+        if note.isalpha():
+            if note.lower() not in valid_notes:
+                return False
     return True
 
 if __name__ == "__main__":
